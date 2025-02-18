@@ -81,16 +81,36 @@ def initialize(debug: bool = False, args: list = None) -> None:
         ADDRESS = input("Enter Host IP: ")
         PORT = input("Enter Host Port: ")
 
-        name_validated = False
-        print("Enter a name that meets the following criteria:")
-        print("1. 8 characters or less")
-        print("2. only contains alpha numeric characters or spaces")
-        name = input("Player name: ")
-        while not name_validated:
-            name_validated = name_validation.validate_name(name)
-            if not name_validated:
-                print("The input name was not valid")
-                name = input("Player name: ")
+        """ OLD CODE """
+        # print("Enter you name")
+        # name = input("Player name: ")
+
+        """ FIXED CODE """
+        is_validated = False
+        print("Enter a name using following restrictions:")
+        print("- 10 characters or less")
+        print("- Only letters, numbers, spaces, and certain special characters allowed")
+        print("(Type '-help' to see allowed characters, or enter your name)")
+        
+        while not is_validated:
+            name = input("Player name: ")
+            if name.lower() == "-help":
+                print("\nAllowed characters:")
+                print("- Letters (A-Z, a-z)")
+                print("- Numbers (0-9)") 
+                print("- Spaces")
+                print("- Apostrophes (')")
+                print("- Special (', ~, !, @, #, $, %, &, *, /, \, <, >)")
+                print("\nPress Enter to continue...")
+                input()
+                print("\nEnter a name using following restrictions:")
+                print("- 10 characters or less")
+                print("- Only letters, numbers, spaces, and certain special characters allowed")
+                continue
+                
+            is_validated = name_validation.validate_name(name)
+            if not is_validated:
+                print("Invalid name! Please try again.")
 
         print(f"Welcome, {name}!")
 
